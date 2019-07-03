@@ -769,6 +769,9 @@ img.mfp-img {
   /**
        * Remove all paddings around the image on small screen
        */
+  .d_scroll{
+    display: none !important;
+  }    
   .f_image{
     margin-top: -40px !important;
   }    
@@ -850,6 +853,9 @@ img.mfp-img {
  }
 
 @media all and (max-width: 900px) {
+  .d_scroll{
+    display: none !important;
+  }
   .f_image{
     margin-top: -40px !important;
   }
@@ -4803,7 +4809,7 @@ $color-text: {{ settings.color_text }};
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #fff !important; 
+  background: transparent !important; 
 }
  
 /* Handle */

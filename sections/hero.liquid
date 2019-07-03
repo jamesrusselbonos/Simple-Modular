@@ -1,0 +1,475 @@
+  {%- if section.settings.hero_image_overlay -%}
+    {%- style -%}
+      .slideshow__overlay:before {
+        {%- assign opacity_alpha = section.settings.hero_image_overlay_opacity | divided_by: 100.00 -%}
+        {%- assign opacity_alpha_3 = opacity_alpha | plus: 0.25 | at_most: 1.0 -%}
+        {%- assign opacity_alpha_2 = opacity_alpha_3 | minus: opacity_alpha | divided_by: 2.0 | plus: opacity_alpha -%}
+        background-image: linear-gradient(to bottom,
+                                          {{ '#000' | color_modify: 'alpha', opacity_alpha }},
+                                          {{ '#000' | color_modify: 'alpha', opacity_alpha }} calc(100% - 150px),
+                                          {{ '#000' | color_modify: 'alpha', opacity_alpha_2 }} calc(100% - 60px),
+                                          {{ '#000' | color_modify: 'alpha', opacity_alpha_3 }});
+      }
+    {%- endstyle -%}
+  {%- endif -%}
+  <div class="hero__banner hero--{{ section.settings.hero_size }}{% if section.settings.title != blank or section.settings.text != blank or section.settings.button_label != blank %} hero__overlay{% endif %} box ratio-container lazyload js {% if section.settings.hero_image_overlay %} slideshow__overlay{% endif %}"
+     {% if section.settings.image %}
+     data-bgset="{% include 'bgset', image: section.settings.image %}"
+     data-sizes="auto"
+     data-parent-fit="cover"
+     style="background-position: {{ section.settings.alignment }}; background-image: url('{{ section.settings.image | img_url: '300x300' }}'); "
+     {% endif %}>
+  {% if section.settings.image == blank %}
+    <div class="placeholder-background">
+      {{ 'lifestyle-1' | placeholder_svg_tag: 'placeholder-svg' }}
+    </div>
+  {% endif %}
+  <div class="hero__inner">
+    <div class="page-width text-center">
+      {% if section.settings.title != blank %}
+        <h1 style="font-size: 50px; color:{{ section.settings.hero_text_color }} !important;" class="h1 mega-title{% if section.settings.text_size == 'large' %} mega-title--large{% endif %}">{{ section.settings.title | escape }}</h1>
+      {% endif %}
+      {% if section.settings.text != blank %}
+        <div style="color:{{ section.settings.hero_text_color }} !important;" class="rte-setting mega-subtitle{% if section.settings.text_size == 'large' %} mega-subtitle--large{% endif %}">{{ section.settings.text }}</div>
+      {% endif %}
+      {% if section.settings.button_label != blank and section.settings.button_link != blank %}
+        <a style="margin-top: 20px; border-radius: 30px;" href="{{ section.settings.button_link }}" class="btn hero__btn">
+          {{ section.settings.button_label | escape }}
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</div>
+
+<noscript>
+  <div class="hero__banner hero--{{ section.settings.hero_size }}{% if section.settings.title != blank or section.settings.text != blank or section.settings.button_label != blank %} hero__overlay{% endif %}"{% if section.settings.image %} style="background-image: url('{{ section.settings.image | img_url: '2048x' }}'); background-position: center {{ section.settings.alignment }};"{% endif %}></div>
+</noscript>
+
+
+
+{% schema %}
+{
+  "name": {
+    "de": "Helden-Banner",
+    "en": "Hero Banner",
+    "es": "Banner de héroe",
+    "fr": "Bannière de héros",
+    "it": "Hero Banner",
+    "ja": "ヒーローバナー",
+    "pt-BR": "Banner de heróis"
+  },
+  "class": "index-section index-section--flush",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": {
+        "de": "Foto",
+        "en": "Image",
+        "es": "Imagen",
+        "fr": "Image",
+        "it": "Immagine",
+        "ja": "画像",
+        "pt-BR": "Imagem"
+      }
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": {
+        "de": "Fotoausrichtung",
+        "en": "Image alignment",
+        "es": "Alineación de imagen",
+        "fr": "Alignement de l'image",
+        "it": "Allineamento immagine",
+        "ja": "画像アラインメント",
+        "pt-BR": "Alinhamento da imagem"
+      },
+      "default": "center",
+      "options": [
+        {
+          "value": "top",
+          "label": {
+            "de": "Oben",
+            "en": "Top",
+            "es": "Superior",
+            "fr": "Haut",
+            "it": "In alto",
+            "ja": "上",
+            "pt-BR": "Acima"
+          }
+        },
+        {
+          "value": "center",
+          "label": {
+            "de": "Mitte",
+            "en": "Middle",
+            "es": "Al medio",
+            "fr": "Milieu",
+            "it": "Al centro",
+            "ja": "中央",
+            "pt-BR": "Meio"
+          }
+        },
+        {
+          "value": "bottom",
+          "label": {
+            "de": "Unten",
+            "en": "Bottom",
+            "es": "Inferior",
+            "fr": "Bas",
+            "it": "In basso",
+            "ja": "下",
+            "pt-BR": "Abaixo"
+          }
+        }
+      ]
+    },
+    {
+      "type": "checkbox",
+      "id": "hero_image_overlay",
+      "label": {
+        "de": "Überlagerung zeigen",
+        "en": "Show overlay",
+        "es": "Mostrar superposición",
+        "fr": "Afficher la superposition",
+        "it": "Mostra sovrapposizione",
+        "ja": "オーバーレイを表示する",
+        "nl": "Overlay weergeven",
+        "pt-BR": "Exibir sobreposição",
+        "zh-CN": "显示叠加",
+        "zh-TW": "顯示疊加層"
+      },
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "hero_image_overlay_opacity",
+      "label": {
+        "de": "Überlagerungsdeckkraft",
+        "en": "Overlay opacity",
+        "es": "Opacidad superpuesta",
+        "fr": "Opacité de la superposition",
+        "it": "Opacità della sovrapposizione",
+        "ja": "オーバーレイ不透明率",
+        "nl": "Ondoorschijnendheid van overlay",
+        "pt-BR": "Opacidade de sobreposição",
+        "zh-CN": "叠加不透明度",
+        "zh-TW": "疊加不透明度"
+      },
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": {
+        "de": "%",
+        "en": "%",
+        "es": "%",
+        "fr": "%",
+        "it": "%",
+        "ja": "%",
+        "nl": "%",
+        "pt-BR": "%",
+        "zh-CN": "%",
+        "zh-TW": "%"
+      },
+      "default": 25
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": {
+        "de": "Titel",
+        "en": "Heading",
+        "es": "Título",
+        "fr": "En-tête",
+        "it": "Heading",
+        "ja": "見出し",
+        "pt-BR": "Título"
+      },
+      "default": {
+        "de": "Foto mit überlegtem Text",
+        "en": "Image with text overlay",
+        "es": "Imagen con texto",
+        "fr": "Image avec superposition de texte",
+        "it": "Immagine con testo",
+        "ja": "テキストオーバーレイ付き画像",
+        "pt-BR": "Imagem com sobreposição de texto"
+      }
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": {
+        "de": "Text",
+        "en": "Text",
+        "es": "Texto",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "pt-BR": "Texto"
+      },
+      "default": {
+        "de": "<p>Nutzen Sie überlegten Text, um Kunden über Ihre Marke zu informieren. Wählen Sie Fotos und Text aus, die zu Ihrer Marke passen.</p>",
+        "en": "<p>Use overlay text to give your customers insight into your brand. Select imagery and text that relates to your style and story.</p>",
+        "es": "<p>Usa el texto superpuesto para darles información a tus clientes sobre tu marca. Selecciona imágenes y textos que se relacionen con tu estilo e historia.</p>",
+        "fr": "<p>Utilisez la superposition de texte pour donner un aperçu de votre marque à vos clients. Utilisez une image et du texte qui se rapportent au style et à l'histoire de votre marque.</p>",
+        "it": "<p>Utilizza il testo in sovrapposizione per dare ai clienti informazioni sul tuo brand. Seleziona immagini e testo legati al tuo stile e alla tua storia.</p>",
+        "ja": "<p>オーバーレイテキストを使用して、お客様があなたのブランドについてよく理解できるようにします。あなたのスタイルやストーリーに関連する画像やテキストを選択してください。</p>",
+        "pt-BR": "<p>Use o texto de sobreposição para apresentar informações sobre sua marca aos clientes. Selecione imagens e textos que reflitam seu estilo e sua história.</p>"
+      }
+    },
+    {
+      "type": "select",
+      "id": "hero_size",
+      "label": {
+        "de": "Bereichs-Höhe",
+        "en": "Section height",
+        "es": "Altura de la sección",
+        "fr": "Hauteur de la section",
+        "it": "Altezza sezione",
+        "ja": "セクションの高さ",
+        "pt-BR": "Altura da seção"
+      },
+      "default": "small",
+      "options": [
+        {
+          "label": {
+            "de": "Extra klein",
+            "en": "Extra Small",
+            "es": "Extra pequeña",
+            "fr": "Très petite",
+            "it": "Molto piccola",
+            "ja": "極小",
+            "pt-BR": "Extra pequeno"
+          },
+          "value": "x-small"
+        },
+        {
+          "label": {
+            "de": "Klein",
+            "en": "Small",
+            "es": "Pequeña",
+            "fr": "Petite",
+            "it": "Small",
+            "ja": "小",
+            "pt-BR": "Pequeno"
+          },
+          "value": "small"
+        },
+        {
+          "label": {
+            "de": "Mitte",
+            "en": "Medium",
+            "es": "Mediana",
+            "fr": "Moyenne",
+            "it": "Medium",
+            "ja": "中",
+            "pt-BR": "Médio"
+          },
+          "value": "medium"
+        },
+        {
+          "label": {
+            "de": "Groß",
+            "en": "Large",
+            "es": "Grande",
+            "fr": "Grande",
+            "it": "Large",
+            "ja": "大",
+            "pt-BR": "Grande"
+          },
+          "value": "large"
+        },
+        {
+          "label": {
+            "de": "Extra groß",
+            "en": "Extra Large",
+            "es": "Extra grande",
+            "fr": "Très grande",
+            "it": "Molto grande",
+            "ja": "特大",
+            "pt-BR": "Extra grande"
+          },
+          "value": "x-large"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "label": {
+        "de": "Textgröße",
+        "en": "Text size",
+        "es": "Tamaño del texto",
+        "fr": "Taille du texte",
+        "it": "Dimensione testo",
+        "ja": "文字サイズ",
+        "pt-BR": "Tamanho do texto"
+      },
+      "default": "medium",
+      "options": [
+        {
+          "label": {
+            "de": "Mitte",
+            "en": "Medium",
+            "es": "Mediano",
+            "fr": "Moyenne",
+            "it": "Medium",
+            "ja": "中",
+            "pt-BR": "Médio"
+          },
+          "value": "medium"
+        },
+        {
+          "label": {
+            "de": "Groß",
+            "en": "Large",
+            "es": "Grande",
+            "fr": "Grande",
+            "it": "Large",
+            "ja": "大",
+            "pt-BR": "Grande"
+          },
+          "value": "large"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": {
+        "de": "Button-Etikett",
+        "en": "Button label",
+        "es": "Etiqueta de botón",
+        "fr": "Texte du bouton",
+        "it": "Etichetta pulsante",
+        "ja": "ボタンラベル",
+        "pt-BR": "Etiqueta do botão"
+      }
+    },
+    {
+      "type": "color",
+      "id": "hero_text_color",
+      "label": {
+        "de": "Textfarbe",
+        "en": "Text",
+        "es": "texto",
+        "fr": "Texte",
+        "it": "Testo",
+        "ja": "テキスト",
+        "nl": "Tekst",
+        "pt-BR": "Texto",
+        "zh-CN": "文本",
+        "zh-TW": "文字"
+      },
+      "default": "#000000"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": {
+        "de": "Button-Etikett",
+        "en": "Button link",
+        "es": "Enlace de botón",
+        "fr": "Lien du bouton",
+        "it": "Link pulsante",
+        "ja": "ボタンリンク",
+        "pt-BR": "Link do botão"
+      }
+    }
+  ],
+  "presets": [
+    {
+      "name": {
+       "de": "Helden-Banner",
+          "en": "Hero Banner",
+          "es": "Banner de héroe",
+          "fr": "Bannière de héros",
+          "it": "Hero Banner",
+          "ja": "ヒーローバナー",
+          "pt-BR": "Banner de heróis"
+      },
+      "category": {
+        "de": "Foto",
+        "en": "Image",
+        "es": "Imagen",
+        "fr": "Image",
+        "it": "Immagine",
+        "ja": "画像",
+        "pt-BR": "Imagem"
+      }
+    }
+  ]
+}
+{% endschema %}
+
+{% stylesheet %}
+
+  .hero__banner {
+    position: relative;
+    height: 430px;
+    display: table;
+    width: 100%;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+  }
+
+  .hero--x-small {
+    height: 330px;
+  }
+
+  .hero--small {
+    height: 430px;
+  }
+
+  .hero--medium {
+    height: 530px;
+  }
+
+  .hero--large {
+    height: 630px;
+  }
+
+  .hero--x-large {
+    height: 730px;
+  }
+
+  @include media-query($medium-up) {
+    .hero--x-small {
+      height: 155px;
+    }
+
+    .hero--small {
+      height: 330px;
+    }
+
+    .hero--medium {
+      height: 505px;
+    }
+
+    .hero--large {
+      height: 680px;
+    }
+
+    .hero--x-large {
+      height: 805px;
+    }
+  }
+
+  .hero__overlay {
+    @include overlay(1);
+  }
+
+  .hero__inner {
+    position: relative;
+    display: table-cell;
+    vertical-align: middle;
+    padding: $section-spacing 0;
+  }
+
+  .hero__btn {
+    margin-top: $section-spacing / 2;
+  }
+
+{% endstylesheet %}

@@ -6,19 +6,21 @@
 {% endif %}
 
 <div style="padding-left: 0px !important; padding-right: 0px !important;" class="grid">
-  <div class="f_image" style="height: 500px; padding-top: 13%; margin-top: -75px; margin-bottom: 50px; background-image: url('{{ article.image | img_url: '2048x2048' }}'); background-size: cover; background-repeat: no-repeat; width: 100%;">
-    <header class="section-header text-center">
-      <h1 style="font-size: 40px;">{{ article.title }}</h1>
-      <hr class="hr--small">
-      <h6 style="margin-bottom: 10px;" class="featured-blog__author">{{ article.author }}</h6>
-      <p>
-        <span class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}">{{ article.published_at | date: format: 'date' }}</time></span>
-      </p>
+  <div class="f_image" style="height: 500px; margin-top: -75px; margin-bottom: 50px; background-image: url('{{ article.image | img_url: '2048x2048' }}'); background-size: cover; background-repeat: no-repeat; background-attachment: fixed !important; width: 100%; position: relative;">
+    <header" class="section-header text-center">
+      <div class="f_overlay">
+        <h1 style="font-size: 40px; color: #fff;">{{ article.title }}</h1>
+        <hr class="hr--small">
+        <h6 style="margin-bottom: 10px; color: #fff;" class="featured-blog__author">{{ article.author }}</h6>
+        <p>
+          <span style="color: #fff;" class="date"><time datetime="{{ article.published_at | date: '%Y-%m-%dT%H:%M:%SZ' }}">{{ article.published_at | date: format: 'date' }}</time></span>
+        </p>
+      </div>
     </header>
   </div>
   <article class="grid__item large--five-sixths push--large--one-twelfth article" itemscope itemtype="http://schema.org/Article">
 
-    <div style="text-align: left !important;" class="grid">
+    <div style="padding-left: 20px !important; padding-right: 20px !important;" class="grid">
       <div class="grid__item large--four-fifths push--large--one-tenth">
 
         <div class="rte rte--indented-images" itemprop="articleBody">

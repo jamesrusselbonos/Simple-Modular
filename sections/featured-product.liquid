@@ -189,7 +189,7 @@
         </div>
 
         <a class="product-single__full-details text-link"{% unless section_onboarding %} href="{{ product.url }}?variant={{ current_variant.id }}"{% endunless %}>
-          {{ 'products.product.full_details' | t }} <span class="fa fa-arrow-down" aria-hidden="true"></span>
+          {{ 'products.product.full_details' | t }} <span class="fa fa-chevron-circle-right" aria-hidden="true"></span>
         </a>
 
         {% if section.settings.show_share_buttons %}

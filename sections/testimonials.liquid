@@ -14,7 +14,7 @@
             <div class="column width-4"> 
               <div class="quotes-slide--{{ block.id }}" {{ block.shopify_attributes }}>
                 <blockquote class="quotes-slider__text text-center">
-                  <span class="quote-icon">{% include 'icon-quote' %}</span>
+                  <i style="position: absolute; font-size: 100px; color: rgba(0, 0, 0, 0.1); margin-top: -50px; margin-left: -50px;" class="fa fa-quote-left" aria-hidden="true"></i>
                   {% if block.settings.quote != blank %}
                     <div class="rte-setting rte">{{ block.settings.quote }}</div>
                   {% endif %}

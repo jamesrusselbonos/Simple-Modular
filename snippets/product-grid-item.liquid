@@ -64,11 +64,11 @@
         {% endif %}
       </a>
       {% if sold_out %}
-        <div class="grid-product__sold-out">
+        <div class="ribbon4">
           <p>{{ 'products.product.sold_out_html' | t }}</p>
         </div>
       {% elsif on_sale %}
-        <div class="grid-product__on-sale">
+        <div class="ribbon2">
           {% capture saved_amount %}{{ product.compare_at_price | minus: product.price | money_without_trailing_zeros }}{% endcapture %}
           <p>{{ 'products.general.save_html' | t: saved_amount: saved_amount }}</p>
         </div>
@@ -77,7 +77,8 @@
 
     <a href="{{ product.url | within: collection }}" class="grid-product__meta">
       <div style="padding-left: 10px; padding-right: 10px;"><span style="font-size: 16px;" class="grid-product__title"><strong>{{ product.title }}</strong></span>
-        <br><br>
+        <p style="margin-top: 10px;" class="grid-product__vendor">{{ product.vendor }}</p>
+        <br>
         <span class="grid-product__price-wrap">
           
           <span class="grid-product__price">
@@ -97,9 +98,6 @@
             {% endif %}
           </span>
         </span>
-        {% if section.settings.product_vendor_enable %}
-          <p style="margin-top: 20px;" class="grid-product__vendor">{{ product.vendor }}</p>
-        {% endif %}
        </div> 
     </a>
   </div>

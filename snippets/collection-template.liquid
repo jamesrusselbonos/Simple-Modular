@@ -30,7 +30,7 @@
 
 <div style="padding-bottom: 50px;" class="row">
   <div class="column width-3">{% if section.settings.collection_tags_enable %}
-    <div class="d_scroll" style="height: 2000px; overflow-y: scroll; overflow-x: hidden;">
+    <div class="d_scroll" {%  if collection.all_tags.size > 0 %} style="height: 2000px; overflow-y: scroll; overflow-x: hidden;" {% else %} style="height: 2000px; overflow-y: scroll; overflow-x: hidden; display: none;" {% endif %}>
         {% if collection.all_tags.size > 0 %}
           {% if section.settings.collection_sort_enable %}
             <hr class="hr--small">
